@@ -48,12 +48,12 @@ def is_wildcard(tables):
 
 
 def map_column_names(column_names, schema=None, tables=None):
-    prefix = ""
-    if schema and len(schema.strip()) > 0:
-        prefix += schema.strip() + "_"
-    if tables and len(tables) > 0:
-        prefix += f"{'_'.join(sorted(tables))}_"
-    return [f"{prefix}{column}".lower() for column in column_names]
+    # prefix = ""
+    # if schema and len(schema.strip()) > 0:
+    #     prefix += schema.strip() + "_"
+    # if tables and len(tables) > 0:
+    #     prefix += f"{'_'.join(sorted(tables))}_"
+    return [f"{column}".lower() for column in column_names]
 
 
 def hash_id(tables, row, primary_key_columns):
@@ -69,7 +69,7 @@ def hash_id(tables, row, primary_key_columns):
         tables = [tables]
 
     return (
-        f"{'_'.join(sorted(tables))}_"
+        f"{'_'.join(sorted(tables))}_" if len(tables) > 1 else ""
         f"{'_'.join([str(pk_value) for pk in primary_key_columns if (pk_value := row.get(pk)) is not None])}"
     )
 

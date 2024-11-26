@@ -592,7 +592,8 @@ class PostgreSQLDataSource(BaseDataSource):
                 last_update_time = (
                     await self.postgresql_client.get_table_last_update_time(table)
                 )
-                last_update_times.append(last_update_time)
+                if last_update_time:
+                    last_update_times.append(last_update_time)
             except Exception:
                 self._logger.warning("Last update time is not found for Table: {table}")
                 last_update_times.append(iso_utc())
@@ -604,7 +605,7 @@ class PostgreSQLDataSource(BaseDataSource):
         async for row in self.yield_rows_for_query(
             primary_key_columns=primary_key_columns, tables=tables, query=query
         ):
-            doc_id = f"{self.database}_{self.schema}_{hash_id(list(tables), row, primary_key_columns)}"
+            doc_id = f"{hash_id([], row, primary_key_columns)}"
 
             yield self.serialize(
                 doc=self.row2doc(
@@ -640,7 +641,7 @@ class PostgreSQLDataSource(BaseDataSource):
                     order_by_columns=order_by_columns,
                 ):
                     doc_id = (
-                        f"{self.database}_{self.schema}_{hash_id([table], row, keys)}"
+                        f"{hash_id([], row, keys)}"
                     )
                     yield self.serialize(
                         doc=self.row2doc(
