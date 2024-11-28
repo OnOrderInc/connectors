@@ -10,7 +10,7 @@ pyvenv.cfg
 __pycache__
 
 # real configurations
-config.yml
+# config.yml, env are in the config passed down 
 
 # jetbrains files
 .idea

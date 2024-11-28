@@ -1,0 +1,8 @@
+connectors:
+  - connector_id: $CONNECTOR_ID
+    service_type: postgresql
+    api_key: $ELASTICSEARCH_API_KEY
+elasticsearch:
+  host: $ELASTICSEARCH_HOST|http://localhost:9200
+  api_key: $ELASTICSEARCH_API_KEY
+  ssl: $ELASTICSEARCH_SSL|false
