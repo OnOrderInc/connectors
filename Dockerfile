@@ -1,5 +1,5 @@
 FROM python:3.11-slim-bookworm
-RUN apt update && apt upgrade && apt install make git gcc -y
+RUN apt update && apt upgrade -y && apt install make git gcc -y
 COPY . /app
 WORKDIR /app
 RUN make clean install
